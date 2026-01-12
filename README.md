@@ -313,7 +313,7 @@ After this project, you understand:
 
 ---
 
-## 🔗 Resources
+ 🔗 Resources
 
 - [Flask Documentation](https://flask.palletsprojects.com/)
 - [SQLite Tutorial](https://www.w3schools.com/sql/)
@@ -322,7 +322,7 @@ After this project, you understand:
 
 ---
 
-## 💼 Portfolio & Resume
+ 💼 Portfolio & Resume
 
 **Add to your resume:**
 ```
@@ -336,21 +336,21 @@ Job Recommendation System - Full-Stack Web Application
 
 ---
 
-## 📞 Support & Contact
+📞 Support & Contact
 
-- 💼 LinkedIn: [Your LinkedIn](https://linkedin.com)
+- 💼 LinkedIn: https://www.linkedin.com/in/swetapadma-swain-825920303/
 - 🐙 GitHub: [SwetapadmaSwain2005](https://github.com/SwetapadmaSwain2005)
-- 📧 Email: your.email@example.com
+- 📧 Email: swetapadmaswain2005@gmail.com
 
 ---
 
-## 📄 License
+ 📄 License
 
 This project is open source and available under the MIT License.
 
 ---
 
-## 🙏 Acknowledgments
+🙏 Acknowledgments
 
 - Built for freshers and interview preparation
 - Inspired by real-world job matching challenges
@@ -358,6 +358,5 @@ This project is open source and available under the MIT License.
 
 ---
 
-**Made with ❤️ for Freshers | Job Recommendation System v1.0.0**
+Made with ❤️ for Freshers | Job Recommendation System v1.0.0**
 
-**Ready to ace your interviews? Good luck! 🚀**
