@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Job Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>✨ Your Job Recommendations</h1>
+            <p class="subtitle">Based on your skills analysis</p>
+        </div>
+
+        <!-- User Skills Display -->
+        <div class="user-skills-section">
+            <h2>Your Skills:</h2>
+            <div class="skills-display">
+                {% for skill in user_skills %}
+                <span class="user-skill-tag">{{ skill }}</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="summary-section">
+            <p>📋 Found <strong>{{ total_recommendations }}</strong> job recommendations for you</p>
+        </div>
+
+        <!-- Recommendations Display -->
+        <div class="recommendations-container">
+            {% if recommendations %}
+                {% for recommendation in recommendations %}
+                <div class="recommendation-card">
+                    <!-- Job Title -->
+                    <div class="card-header">
+                        <h2 class="job-title">
+                            {{ recommendation.job_role }}
+                        </h2>
+                        <div class="match-badge {% if recommendation.match_percentage >= 80 %}excellent{% elif recommendation.match_percentage >= 60 %}good{% elif recommendation.match_percentage >= 40 %}moderate{% else %}low{% endif %}">
+                            {{ recommendation.match_percentage }}% Match
+                        </div>
+                    </div>
+
+                    <!-- Match Percentage Bar -->
+                    <div class="match-bar-container">
+                        <div class="match-bar" style="width: {{ recommendation.match_percentage }}%">
+                            <span class="match-bar-label">{{ recommendation.match_percentage }}%</span>
+                        </div>
+                    </div>
+
+                    <!-- Skills Analysis -->
+                    <div class="card-content">
+                        <!-- Your Skills For This Job -->
+                        <div class="skills-section">
+                            <h3>✓ Skills You Have:</h3>
+                            <div class="skills-list">
+                                {% if recommendation.user_has_skills %}
+                                    {% for skill in recommendation.user_has_skills %}
+                                    <span class="skill-badge have">{{ skill }}</span>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="no-skills">None yet</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Missing Skills -->
+                        <div class="skills-section">
+                            <h3>📚 Skills To Learn:</h3>
+                            <div class="skills-list">
+                                {% if recommendation.missing_skills %}
+                                    {% for skill in recommendation.missing_skills %}
+                                    <span class="skill-badge missing">{{ skill }}</span>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="no-skills">You have all required skills! 🎉</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- All Required Skills -->
+                        <div class="skills-section">
+                            <h3>🎯 All Required Skills:</h3>
+                            <div class="skills-list">
+                                {% for skill in recommendation.all_required_skills %}
+                                <span class="skill-badge 
+                                    {% if skill|lower in user_skills %}have{% else %}missing{% endif %}">
+                                    {{ skill }}
+                                </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recommendation Message -->
+                    <div class="recommendation-message">
+                        {% if recommendation.match_percentage >= 80 %}
+                        <p>🌟 <strong>Excellent Match!</strong> You are well-suited for this role.</p>
+                        {% elif recommendation.match_percentage >= 60 %}
+                        <p>✨ <strong>Good Match!</strong> You have most required skills.</p>
+                        {% elif recommendation.match_percentage >= 40 %}
+                        <p>⚡ <strong>Moderate Match.</strong> Learn the missing skills to improve.</p>
+                        {% else %}
+                        <p>🚀 <strong>Development Opportunity.</strong> Great area to grow into.</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="no-results">
+                <p>No recommendations found. Please try with different skills.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="/" class="btn-primary">Try Again</a>
+            <button class="btn-secondary" onclick="window.print()">📄 Print Results</button>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="tips-section">
+            <h3>💡 Next Steps:</h3>
+            <ul>
+                <li>Focus on learning the missing skills listed above</li>
+                <li>Build projects using these technologies</li>
+                <li>Practice and improve your match percentage</li>
+                <li>Check job descriptions to understand requirements better</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Made with ❤️ for Freshers | Confidential</p>
+        </div>
+    </div>
+
+    <script>
+        // Auto-scroll to top when page loads
+        window.scrollTo(0, 0);
+    </script>
+</body>
+</html>

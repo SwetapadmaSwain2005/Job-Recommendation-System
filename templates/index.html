@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Recommendation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>🎯 Job Recommendation System</h1>
+            <p class="subtitle">Find the Perfect Job Role Based on Your Skills</p>
+        </div>
+
+        <!-- Error Message Display -->
+        {% if error %}
+        <div class="error-box">
+            <p>⚠️ {{ error }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Introduction Section -->
+        <div class="intro-section">
+            <h2>How It Works?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <p>Enter your skills</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <p>We match with jobs</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <p>Get recommendations</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Form Section -->
+        <div class="form-section">
+            <h2>Enter Your Skills</h2>
+            <p class="form-description">
+                Type the skills you have, separated by commas
+            </p>
+
+            <form action="/recommend" method="POST" id="skillsForm">
+                <input 
+                    type="text" 
+                    name="skills" 
+                    id="skillsInput"
+                    placeholder="Example: python, sql, javascript, html, css, java, communication"
+                    required
+                    autocomplete="off"
+                    class="input-field"
+                >
+                <button type="submit" class="submit-btn">Find Suitable Jobs</button>
+            </form>
+        </div>
+
+        <!-- Example Skills Section -->
+        <div class="example-section">
+            <h3>Popular Skills to Add:</h3>
+            <div class="example-skills">
+                <span class="skill-tag" onclick="addSkill(this)">Python</span>
+                <span class="skill-tag" onclick="addSkill(this)">Java</span>
+                <span class="skill-tag" onclick="addSkill(this)">JavaScript</span>
+                <span class="skill-tag" onclick="addSkill(this)">HTML</span>
+                <span class="skill-tag" onclick="addSkill(this)">CSS</span>
+                <span class="skill-tag" onclick="addSkill(this)">SQL</span>
+                <span class="skill-tag" onclick="addSkill(this)">Excel</span>
+                <span class="skill-tag" onclick="addSkill(this)">Communication</span>
+            </div>
+            <p class="hint">💡 Click any skill above to add it to your input</p>
+        </div>
+
+        <!-- Information Cards -->
+        <div class="info-cards">
+            <div class="info-card">
+                <h4>📊 What We Do</h4>
+                <p>We match your skills with job requirements and show you the best fit.</p>
+            </div>
+            <div class="info-card">
+                <h4>🎓 Who It's For</h4>
+                <p>Perfect for freshers and students who are unsure about career paths.</p>
+            </div>
+            <div class="info-card">
+                <h4>💡 How It Helps</h4>
+                <p>We show match percentage and skills you need to learn.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Made with ❤️ for Freshers | Confidential</p>
+        </div>
+    </div>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Function to add skill when clicking example skill tags
+        function addSkill(element) {
+            const skillName = element.textContent.toLowerCase();
+            const inputField = document.getElementById('skillsInput');
+            const currentValue = inputField.value.trim();
+            
+            // Add skill if it doesn't already exist
+            if (currentValue) {
+                if (!currentValue.toLowerCase().includes(skillName)) {
+                    inputField.value = currentValue + ', ' + skillName;
+                }
+            } else {
+                inputField.value = skillName;
+            }
+            
+            // Focus on input
+            inputField.focus();
+        }
+
+        // Form validation
+        document.getElementById('skillsForm').addEventListener('submit', function(e) {
+            const skillsInput = document.getElementById('skillsInput').value.trim();
+            
+            if (!skillsInput) {
+                e.preventDefault();
+                alert('Please enter at least one skill!');
+            }
+        });
+
+        // Add visual feedback on skill input
+        document.getElementById('skillsInput').addEventListener('focus', function() {
+            this.parentElement.classList.add('focused');
+        });
+
+        document.getElementById('skillsInput').addEventListener('blur', function() {
+            this.parentElement.classList.remove('focused');
+        });
+    </script>
+</body>
+</html>
